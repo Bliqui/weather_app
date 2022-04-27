@@ -1,26 +1,26 @@
 import './App.css';
 import CityInfo from "./Components/CityInfo";
 import React, {useState} from "react";
-import axios from "axios";
+import {callAPI} from "./Helpers/API";
 
 function App() {
     const [city, setCity] = useState('');
-    let [cityInfo, setCityInfo] = useState({});
+    let [aboutCity, setCityInfo] = useState({});
 
-    const findCity = e => {
+    const findCityHandler = e => {
         if (e.key === 'Enter') {
-            axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=53a18b60e8fbf51e04b52d0e4697faa7`)
+            callAPI.getWeather(city)
                 .then(response => {
                     const {name, main: {temp}, main: {feels_like}, main: {temp_min}, main: {temp_max}} = response.data;
                     const updateState = {
                         name,
-                        temp,
-                        tempMin: temp_min,
-                        tempMax: temp_max,
-                        feelsLike: feels_like
+                        temp: Math.ceil(temp),
+                        tempMin: Math.ceil(temp_min),
+                        tempMax: Math.ceil(temp_max),
+                        feelsLike: Math.ceil(feels_like)
                     };
                     setCityInfo(updateState);
-                })
+                }).then(() => setCity(''));
         }
     };
 
@@ -32,9 +32,9 @@ function App() {
                 <input type="text"
                        onChange={(e) => setCity(e.target.value)}
                        value={city}
-                       onKeyPress={findCity}
+                       onKeyPress={findCityHandler}
                 />
-                {Object.keys(cityInfo).length === 0 ? null : (<CityInfo {...cityInfo}/>)}
+                {Object.keys(aboutCity).length === 0 ? null : (<CityInfo {...aboutCity}/>)}
             </div>
         </div>
     );
