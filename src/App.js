@@ -9,7 +9,7 @@ function App() {
 
     const findCity = e => {
         if (e.key === 'Enter') {
-            axios.get('https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=53a18b60e8fbf51e04b52d0e4697faa7')
+            axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=53a18b60e8fbf51e04b52d0e4697faa7`)
                 .then(response => {
                     const {name, main: {temp}, main: {feels_like}, main: {temp_min}, main: {temp_max}} = response.data;
                     const updateState = {
