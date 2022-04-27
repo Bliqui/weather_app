@@ -5,27 +5,20 @@ import axios from "axios";
 
 function App() {
     const [city, setCity] = useState('');
-    let [cityInfo, setCityInfo] = useState({
-        name: 'city name',
-        temp: 'city temp',
-        tempMin: 'min temp',
-        tempMax: 'max temp',
-        feelsLike: 'feels like'
-    });
-
+    let [cityInfo, setCityInfo] = useState({});
 
     const findCity = e => {
         if (e.key === 'Enter') {
             axios.get('https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=53a18b60e8fbf51e04b52d0e4697faa7')
                 .then(response => {
-                   const {name, main:{temp}, main:{feels_like}, main:{temp_min}, main:{temp_max}}  = response.data;
-                   const updateState = {
-                       name,
-                       temp,
-                       tempMin: temp_min,
-                       tempMax: temp_max,
-                       feelsLike: feels_like
-                   };
+                    const {name, main: {temp}, main: {feels_like}, main: {temp_min}, main: {temp_max}} = response.data;
+                    const updateState = {
+                        name,
+                        temp,
+                        tempMin: temp_min,
+                        tempMax: temp_max,
+                        feelsLike: feels_like
+                    };
                     setCityInfo(updateState);
                 })
         }
@@ -41,7 +34,7 @@ function App() {
                        value={city}
                        onKeyPress={findCity}
                 />
-                <CityInfo {...cityInfo}/>
+                {Object.keys(cityInfo).length === 0 ? null : (<CityInfo {...cityInfo}/>)}
             </div>
         </div>
     );
