@@ -9,7 +9,8 @@ function App() {
         name: 'city name',
         temp: 'city temp',
         tempMin: 'min temp',
-        tempMax: 'max temp'
+        tempMax: 'max temp',
+        feelsLike: 'feels like'
     });
 
 
@@ -17,8 +18,16 @@ function App() {
         if (e.key === 'Enter') {
             axios.get('https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=53a18b60e8fbf51e04b52d0e4697faa7')
                 .then(response => {
-                    setCityInfo(cityInfo = response.data);
-                });
+                   const {name, main:{temp}, main:{feels_like}, main:{temp_min}, main:{temp_max}}  = response.data;
+                   const updateState = {
+                       name,
+                       temp,
+                       tempMin: temp_min,
+                       tempMax: temp_max,
+                       feelsLike: feels_like
+                   };
+                    setCityInfo(updateState);
+                })
         }
     };
 
