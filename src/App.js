@@ -32,7 +32,7 @@ function App() {
                        value={city}
                        onKeyPress={findCity}
                 />
-                <CityInfo props={cityInfo}/>
+                <CityInfo {...cityInfo}/>
             </div>
         </div>
     );
