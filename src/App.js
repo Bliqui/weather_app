@@ -2,6 +2,7 @@ import './App.css';
 import CityInfo from "./Components/CityInfo";
 import React, {useState} from "react";
 import {callAPI} from "./Helpers/API";
+import styled from "styled-components";
 
 function App() {
     const [city, setCity] = useState('');
@@ -11,13 +12,19 @@ function App() {
         if (e.key === 'Enter') {
             callAPI.getWeather(city)
                 .then(response => {
-                    const {name, main: {temp}, main: {feels_like}, main: {temp_min}, main: {temp_max}} = response.data;
+                    const {
+                        name, main: {temp}, main: {feels_like},
+                        main: {temp_min}, main: {temp_max},
+                        weather: [{main}], wind: {speed}
+                    } = response.data;
                     const updateState = {
                         name,
                         temp: Math.ceil(temp),
                         tempMin: Math.ceil(temp_min),
                         tempMax: Math.ceil(temp_max),
-                        feelsLike: Math.ceil(feels_like)
+                        feelsLike: Math.ceil(feels_like),
+                        weatherInfo: main,
+                        windSpeed: speed
                     };
                     setCityInfo(updateState);
                 }).then(() => setCity(''));
@@ -25,8 +32,8 @@ function App() {
     };
 
     return (
-        <div className='App'>
-            <div className={'App-wrapper'}>
+        <div>
+            <div>
                 <h1>Good day...</h1>
                 <h2>Which city weather are you interested in?</h2>
                 <input type="text"
@@ -39,5 +46,6 @@ function App() {
         </div>
     );
 }
+
 
 export default App;
