@@ -5,3 +5,4 @@ My weather app based on react (hooks).
 ```sh
 REACT_APP_KEY=
 ```
+You may try it here: [Weather App](https://bliqui.github.io/weather_app/)
