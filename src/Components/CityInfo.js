@@ -26,12 +26,13 @@ const CityInfo = ({name, temp, tempMin, tempMax, feelsLike, weatherInfo , windSp
 
 const CityInfoWrapper = styled.div`
   display: flex;
+  margin-top: 50px;
 `
 
 const CityTempWrapper = styled.div`
   height: auto;
   width: 400px;
-  background-color: rgba(0, 0, 0, 20%);
+  background-color: rgba(255,255,255, 0.3);
   border: #000 solid 0.5px;
   border-radius: 15px;
   border-top-right-radius: 0px;
@@ -110,7 +111,7 @@ const CityMaxTemp = styled.div`
 const CityWindWrapper = styled.div`
   height: auto;
   width: 250px;
-  background-color: rgba(0, 0, 0, 20%);
+  background-color: rgba(255,255,255, 0.3);
   border: #000 solid 0.5px;
   border-left: none;
   border-radius: 15px;

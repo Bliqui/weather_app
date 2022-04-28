@@ -2,10 +2,10 @@ import './App.css';
 import CityInfo from "./Components/CityInfo";
 import React, {useState} from "react";
 import {callAPI} from "./Helpers/API";
-import styled from "styled-components";
+import clouds from './img/clouds-bottom-right.png';
 
 function App() {
-    const [city, setCity] = useState('');
+    const [city, setCity] = useState('Which city weather are you interested in?');
     let [aboutCity, setCityInfo] = useState({});
 
     const findCityHandler = e => {
@@ -31,17 +31,24 @@ function App() {
         }
     };
 
+    const inputClearHandler = () => {
+        city === 'Which city weather are you interested in?' && setCity('')
+    };
+
     return (
-        <div>
-            <div>
-                <h1>Good day...</h1>
-                <h2>Which city weather are you interested in?</h2>
-                <input type="text"
-                       onChange={(e) => setCity(e.target.value)}
-                       value={city}
-                       onKeyPress={findCityHandler}
+        <div className={'app'}>
+            <div className={'appWrapper'}>
+                <h1 className={'greetingText'}>Good day...</h1>
+                <input
+                    className={'cityNameInput'}
+                    type="text"
+                    onChange={(e) => setCity(e.target.value)}
+                    onClick={inputClearHandler}
+                    value={city}
+                    onKeyPress={findCityHandler}
                 />
                 {Object.keys(aboutCity).length === 0 ? null : (<CityInfo {...aboutCity}/>)}
+                <img className={'cloudsBottomRight'} src={clouds} alt="clouds"/>
             </div>
         </div>
     );
