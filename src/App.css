@@ -41,6 +41,10 @@ body {
     font-size: 20px;
 }
 
+.cityNameInput::placeholder {
+    color: #000000;
+}
+
 .cloudsBottomRight {
     position: absolute;
     right: 0%;
