@@ -9,6 +9,7 @@ import Loader from "../src/Components/Loader"
 function App() {
     const [city, setCity] = useState('');
     const [aboutCity, setCityInfo] = useState({});
+    const [mistakeAlert, setMistakeAlert] = useState(false);
     const [loaderFlag, setLoaderFlag] = useState(false);
     const [cityFlag, setCityFlag] = useState(false);
 
@@ -34,7 +35,7 @@ function App() {
                     };
                     setCityInfo(updateState);
                 }).then(() => setCity(''))
-                .catch(() => console.log('something went wrong'))
+                .catch(() => alert('Check if you entered the city name correctly.'))
                 .finally(() => {
                     setLoaderFlag(false )
                     setCityFlag(true)
