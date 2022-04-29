@@ -1,16 +1,21 @@
-import './App.css';
+import "./App.css";
 import CityInfo from "./Components/CityInfo";
 import React, {useState} from "react";
 import {callAPI} from "./Helpers/API";
-import clouds from './img/clouds-bottom-right.png';
-import cloud from './img/single-cloud.png'
+import clouds from "./img/clouds-bottom-right.png";
+import cloud from "./img/single-cloud.png";
+import Loader from "../src/Components/Loader"
 
 function App() {
     const [city, setCity] = useState('');
-    let [aboutCity, setCityInfo] = useState({});
+    const [aboutCity, setCityInfo] = useState({});
+    const [loaderFlag, setLoaderFlag] = useState(false);
+    const [cityFlag, setCityFlag] = useState(false);
 
     const findCityHandler = e => {
         if (e.key === 'Enter') {
+            setCityFlag(false);
+            setLoaderFlag(true);
             callAPI.getWeather(city)
                 .then(response => {
                     const {
@@ -28,7 +33,12 @@ function App() {
                         windSpeed: speed
                     };
                     setCityInfo(updateState);
-                }).then(() => setCity(''));
+                }).then(() => setCity(''))
+                .catch(() => console.log('something went wrong'))
+                .finally(() => {
+                    setLoaderFlag(false )
+                    setCityFlag(true)
+                });
         }
     };
 
@@ -44,8 +54,11 @@ function App() {
                     value={city}
                     onKeyPress={findCityHandler}
                 />
-                {Object.keys(aboutCity).length === 0 ? null : (<CityInfo {...aboutCity}/>)}
-                <img className={'cloudsBottomRight'} src={clouds} alt="clouds"/>
+
+                {loaderFlag ? <Loader /> : null}
+                {cityFlag ? (<CityInfo {...aboutCity}/>) : null}
+
+                <img className={"cloudsBottomRight"} src={clouds} alt="clouds"/>
                 <img className={"cloudTopLeft"} src={cloud} alt="cloud"/>
             </div>
         </div>
