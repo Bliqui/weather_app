@@ -34,11 +34,17 @@ function App() {
                         windSpeed: speed
                     };
                     setCityInfo(updateState);
-                }).then(() => setCity(''))
-                .catch(() => alert('Check if you entered the city name correctly.'))
+                }).then(() => {
+                    setCity('');
+                    setCityFlag(true);
+                })
+                .catch(() => {
+                    alert('Check if you entered the city name correctly.');
+                    setCityFlag(false);
+                    setCity('');
+                })
                 .finally(() => {
-                    setLoaderFlag(false )
-                    setCityFlag(true)
+                    setLoaderFlag(false );
                 });
         }
     };
