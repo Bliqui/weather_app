@@ -5,11 +5,12 @@ import {callAPI} from "./Helpers/API";
 import clouds from "./img/clouds-bottom-right.png";
 import cloud from "./img/single-cloud.png";
 import Loader from "../src/Components/Loader"
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const [city, setCity] = useState('');
     const [aboutCity, setCityInfo] = useState({});
-    const [mistakeAlert, setMistakeAlert] = useState(false);
     const [loaderFlag, setLoaderFlag] = useState(false);
     const [cityFlag, setCityFlag] = useState(false);
 
@@ -39,7 +40,10 @@ function App() {
                     setCityFlag(true);
                 })
                 .catch(() => {
-                    alert('Check if you entered the city name correctly.');
+                    toast.info('Check if you entered the city name correctly.', {
+                        position: toast.POSITION.TOP_CENTER,
+                        icon: "⛅"
+                    });
                     setCityFlag(false);
                     setCity('');
                 })
@@ -51,6 +55,7 @@ function App() {
 
     return (
         <div className={'app'}>
+            <ToastContainer limit={1}/>
             <div className={'appWrapper'}>
                 <h1 className={'greetingText'}>Good day...</h1>
                 <input
