@@ -1,6 +1,6 @@
 import "./App.css";
 import CityInfo from "./Components/CityInfo";
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {callAPI} from "./Helpers/API";
 import clouds from "./img/clouds-bottom-right.png";
 import cloud from "./img/single-cloud.png";
@@ -13,6 +13,10 @@ function App() {
     const [aboutCity, setCityInfo] = useState({});
     const [loaderFlag, setLoaderFlag] = useState(false);
     const [cityFlag, setCityFlag] = useState(false);
+    const input = useRef();
+    useEffect(() => {
+       input.current.focus()
+    }, []);
 
     const findCityHandler = e => {
         if (e.key === 'Enter') {
@@ -64,6 +68,7 @@ function App() {
                     type="text"
                     onChange={(e) => setCity(e.target.value)}
                     value={city}
+                    ref={input}
                     onKeyPress={findCityHandler}
                 />
 
