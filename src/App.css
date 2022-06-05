@@ -49,12 +49,21 @@ body {
     position: absolute;
     right: 0%;
     bottom: 0%;
-    width: min(80%, 500px);
+    width: 50%;
 }
 
 .cloudTopLeft {
     position: absolute;
     left: 0%;
     top: 0%;
-    width: min(80%, 500px);
+    width: 50%;
+}
+
+@media screen and (max-width: 500px) {
+    .cloudsBottomRight {
+        width: 30%;
+    }
+    .cloudTopLeft {
+        width: 30%;
+    }
 }
